@@ -64,6 +64,10 @@ namespace EmployeeProject
         public static void ManualAdd(List<Employee> employees)
         {
             {
+                Console.WriteLine("Employee ID");
+                var EmployeeID = Console.ReadLine();
+                
+
                 Console.WriteLine("Please enter first name");
                 var firstName = Console.ReadLine();
 
@@ -71,10 +75,12 @@ namespace EmployeeProject
                 var lastName = Console.ReadLine();
 
                 Console.WriteLine("Please enter date of birth (DD/MM/YYYY)");
-                var dob = Convert.ToDateTime(Console.ReadLine());
+                var dob = Console.ReadLine();
+                DateTime.TryParse(dob, out DateTime parsedDob);
 
                 Console.WriteLine("Please enter the employee start date (DD/MM/YYYY)");
-                var startDate = Convert.ToDateTime(Console.ReadLine());
+                var startDate = Console.ReadLine();
+                DateTime.TryParse(startDate, out DateTime parsedStartDate);
 
                 Console.WriteLine("Please enter the employee hometown");
                 var homeTown = Console.ReadLine();
@@ -82,7 +88,7 @@ namespace EmployeeProject
                 Console.WriteLine("Please enter the employee department");
                 var department = Console.ReadLine();
 
-                Employee newEmployee = new Employee(firstName, lastName, dob, startDate, homeTown, department);
+                Employee newEmployee = new Employee(EmployeeID, firstName, lastName, parsedDob, parsedStartDate, homeTown, department);
 
                 employees.Add(newEmployee);
                 StartMenu(employees);
@@ -100,17 +106,17 @@ namespace EmployeeProject
                     var line = reader.ReadLine();
                     var values = line.Split(',');
 
-                    string firstName = values[0];
-                    string lastName = values[1];
-                    string dob = values[2];
-                    DateTime parsedDob = Convert.ToDateTime(dob);
-                    string StartDate = values[3];
-                    DateTime parsedStartDate = Convert.ToDateTime(StartDate);
-                    string hometown = values[4];
-                    string department = values[5];
+                    string EmployeeId = values[0];
+                    string firstName = values[1];
+                    string lastName = values[2];
+                    string dob = values[3];
+                    DateTime.TryParse(dob, out DateTime parsedDob);
+                    string StartDate = values[4];
+                    DateTime.TryParse(StartDate, out DateTime parsedStartDate);
+                    string hometown = values[5];
+                    string department = values[6];
 
-
-                    Employee newEmployee = new Employee(firstName, lastName, parsedDob, parsedStartDate, hometown, department);
+                    Employee newEmployee = new Employee(EmployeeId, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
 
                     employees.Add(newEmployee);
                 }
