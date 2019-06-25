@@ -95,8 +95,11 @@ namespace EmployeeProject
 
                     Employee newEmployee = new Employee(EmployeeID, firstName, lastName, parsedDob, parsedStartDate, homeTown, department);
 
+                    string result = $"{EmployeeID},{firstName},{lastName},{parsedDob},{parsedStartDate},{homeTown},{department}";
+
                     employees.Add(newEmployee);
-                    writer.WriteLine(employees);
+                    writer.WriteLine(result);
+                    writer.Close();
                     StartMenu(employees);
                 }
             }

@@ -30,7 +30,7 @@ namespace EmployeeProject
 
         public void DisplayAll()
         {
-            Console.WriteLine($" EmployeeId: {EmployeeID}\n First Name: { FirstName}\n Last Name: { LastName}\n Dob: { Dob}\n Start Date: { StartDate}\n HomeTown: { HomeTown}\n Department: {Department}\n");
+            Console.WriteLine($" EmployeeId: {EmployeeID}\n First Name: { FirstName}\n Last Name: { LastName}\n Dob: { Dob.ToShortDateString()}\n Start Date: { StartDate.ToShortDateString()}\n HomeTown: { HomeTown}\n Department: {Department}\n");
         }
 
     }
