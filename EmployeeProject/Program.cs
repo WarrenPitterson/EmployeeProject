@@ -65,8 +65,7 @@ namespace EmployeeProject
         {
             {
                 Console.WriteLine("Employee ID");
-                var EmployeeID = Console.ReadLine();
-                
+                var EmployeeID = (Console.ReadLine());
 
                 Console.WriteLine("Please enter first name");
                 var firstName = Console.ReadLine();
@@ -97,33 +96,42 @@ namespace EmployeeProject
 
         public static void AddEmployeeViaCSV(List<Employee> employees)
         {
-            string databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
-
-            using (var reader = new StreamReader(databasePath))
+            try
             {
-                while (!reader.EndOfStream)
+                string databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
+
+                using (var reader = new StreamReader(databasePath))
                 {
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var values = line.Split(',');
 
-                    string EmployeeId = values[0];
-                    string firstName = values[1];
-                    string lastName = values[2];
-                    string dob = values[3];
-                    DateTime.TryParse(dob, out DateTime parsedDob);
-                    string StartDate = values[4];
-                    DateTime.TryParse(StartDate, out DateTime parsedStartDate);
-                    string hometown = values[5];
-                    string department = values[6];
 
-                    Employee newEmployee = new Employee(EmployeeId, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
+                        string employeeID = values[0];
+                        string firstName = values[1];
+                        string lastName = values[2];
+                        string dob = values[3];
+                        DateTime.TryParse(dob, out DateTime parsedDob);
+                        string StartDate = values[4];
+                        DateTime.TryParse(StartDate, out DateTime parsedStartDate);
+                        string hometown = values[5];
+                        string department = values[6];
 
-                    employees.Add(newEmployee);
+                        Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
+
+                        employees.Add(newEmployee);
+                    }
+
+                    Console.WriteLine("Employees added from CSV");
                 }
-
-                Console.WriteLine("Employees added from CSV");
+                StartMenu(employees);
             }
-            StartMenu(employees);
+            catch (Exception e)
+            {
+                Console.WriteLine("Unable to read file");
+                Console.WriteLine(e.Message);
+            }
         }
         
         public static void ShowAllEmployees(List<Employee> employees)
@@ -138,7 +146,11 @@ namespace EmployeeProject
 
         public static void RemoveEmployee(List<Employee> employees)
         {
-            Console.WriteLine("Please enter then name of the employee you wish to remove");
+            Console.WriteLine("Please enter the employee number of the employee you wish to remove");
+
+            var employeeRemoved = Console.ReadLine();
+
+
 
             //employees.Remove(oldEmployee);
             StartMenu(employees);
