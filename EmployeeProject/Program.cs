@@ -30,10 +30,12 @@ namespace EmployeeProject
             Console.WriteLine("3 - List all Employees");
             Console.WriteLine("4 - Quit Program");
 
-            var userInput = Convert.ToInt32(Console.ReadLine().Trim());
+
+            var userInput = (Console.ReadLine().Trim());
+            Int32.TryParse(userInput, out int userInputResult);
 
 
-            switch (userInput)
+            switch (userInputResult)
             { 
                 case 1:
                 ManualAdd(employees);
@@ -52,7 +54,7 @@ namespace EmployeeProject
                 break;
 
                 default:
-                Console.WriteLine("Please select either 1, 2, 3 or 4");
+                Console.WriteLine("Please select either 1, 2, 3 or 4\n" );
                 break;
             }
             StartMenu(employees);
@@ -103,12 +105,12 @@ namespace EmployeeProject
                     string dob = values[2];
                     DateTime parsedDob = Convert.ToDateTime(dob);
                     string StartDate = values[3];
-                    DateTime parsedStartDate = DateTime.Parse(StartDate);
+                    DateTime parsedStartDate = Convert.ToDateTime(StartDate);
                     string hometown = values[4];
                     string department = values[5];
 
 
-                    Employee newEmployee = new Employee(firstName, lastName, parsedDob, parsedStartDate.Date, hometown, department);
+                    Employee newEmployee = new Employee(firstName, lastName, parsedDob, parsedStartDate, hometown, department);
 
                     employees.Add(newEmployee);
                 }
@@ -135,7 +137,12 @@ namespace EmployeeProject
             //employees.Remove(oldEmployee);
             StartMenu(employees);
         }
-    }
+
+        public static void AppenedEmployee(List<Employee> employees)
+        {
+
+        }
+    } 
 
 }
 
