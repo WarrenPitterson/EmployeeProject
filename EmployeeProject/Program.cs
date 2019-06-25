@@ -30,27 +30,32 @@ namespace EmployeeProject
             Console.WriteLine("3 - List all Employees");
             Console.WriteLine("4 - Quit Program");
 
-            var userInput = Convert.ToInt32(Console.ReadLine());
+            var userInput = Convert.ToInt32(Console.ReadLine().Trim());
 
-            if (userInput == 1)
-            {
+
+            switch (userInput)
+            { 
+                case 1:
                 ManualAdd(employees);
-            }
+                break;
 
-            if (userInput == 2)
-            {
+                case 2:
                 AddEmployeeViaCSV(employees);
-            }
+                break;
 
-            if (userInput == 3)
-            {
+                case 3:
                 ShowAllEmployees(employees);
-            }
+                break;
 
-            if (userInput == 4)
-            {
+                case 4:
                 Environment.Exit(0);
+                break;
+
+                default:
+                Console.WriteLine("Please select either 1, 2, 3 or 4");
+                break;
             }
+            StartMenu(employees);
         }
 
 
