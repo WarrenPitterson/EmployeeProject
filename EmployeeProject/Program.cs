@@ -143,7 +143,6 @@ namespace EmployeeProject
 
                         employees.Add(newEmployee);
                     }
-                    reader.Close();
                     Console.WriteLine("Employees added from CSV\n");
                 }
                 StartMenu(employees);
@@ -179,10 +178,8 @@ namespace EmployeeProject
             {
                 Console.WriteLine($"{e.FirstName} has been removed");
                 employees.Remove(e);
+                StartMenu(employees);
             }
-
-           StartMenu(employees);
-
         }
 
         public static void AppendEmployee(List<Employee> employees)
