@@ -100,6 +100,7 @@ namespace EmployeeProject
 
                         string result = $"{EmployeeID},{firstName},{lastName},{parsedDob},{parsedStartDate},{homeTown},{department}";
 
+
                         employees.Add(newEmployee);
                         writer.WriteLine(result);
                         writer.Close();
@@ -121,7 +122,7 @@ namespace EmployeeProject
             {
                 string databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
 
-                using (var reader = new StreamReader(databasePath))
+                using (var reader = new StreamReader(databasePath, true))
 
                 {
                     while (!reader.EndOfStream)
@@ -167,7 +168,7 @@ namespace EmployeeProject
 
         public static void RemoveEmployee(List<Employee> employees)
         {
-          
+
             Console.WriteLine("Please enter the employee number you wish to remove");
             var employeeRemoved = Console.ReadLine();
 
@@ -184,11 +185,18 @@ namespace EmployeeProject
             }
         }
 
+        //public static void AppendEmployee(List<Employee> employees)
+        //{
 
-        public static void AppendEmployee(List<Employee> employees)
-        {
+        //}
 
-        }
+        //public static void Age(List<Employee> employees)
+        //{
+
+        //    int age = 0;
+        //    age = Today.Year - dob.Year;
+        //    if (dob.Date > today.AddYears(-age)) age--;
+        //}
     }
 
 }
