@@ -12,16 +12,18 @@ namespace EmployeeProject
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
+        public int Age { get; }
         public DateTime StartDate { get; set; }
         public string HomeTown { get; set; }
         public string Department { get; set; }
 
-        public Employee(string employeeID, string firstName, string lastName, DateTime dob, DateTime startDate, string homeTown, string department)
+        public Employee(string employeeID, string firstName, string lastName, DateTime dob, DateTime startDate, string homeTown, string department, int age)
         {
             this.EmployeeID = employeeID;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Dob = dob;
+            this.Age = age;
             this.StartDate = startDate;
             this.HomeTown = homeTown;
             this.Department = department;

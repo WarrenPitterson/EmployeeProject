@@ -27,6 +27,7 @@ namespace EmployeeProject
             Console.WriteLine("2 - Add Employee via CSV");
             Console.WriteLine("3 - List all Employees");
             Console.WriteLine("4 - Remove Employee");
+            Console.WriteLine("5 - Save Changes");
             Console.WriteLine("0 - Quit Program\n");
 
 
@@ -54,6 +55,9 @@ namespace EmployeeProject
 
                 case 4:
                     RemoveEmployee(employees);
+                    break;
+                case 5:
+                    SaveChanges(employees);
                     break;
 
                 default:
@@ -85,6 +89,7 @@ namespace EmployeeProject
                         Console.WriteLine("Please enter date of birth (DD/MM/YYYY)");
                         var dob = Console.ReadLine();
                         DateTime.TryParse(dob, out DateTime parsedDob);
+                        
 
                         Console.WriteLine("Please enter the employee start date (DD/MM/YYYY)");
                         var startDate = Console.ReadLine();
@@ -96,9 +101,11 @@ namespace EmployeeProject
                         Console.WriteLine("Please enter the employee department");
                         var department = Console.ReadLine();
 
-                        Employee newEmployee = new Employee(EmployeeID, firstName, lastName, parsedDob, parsedStartDate, homeTown, department);
+                        var age = 0; 
 
-                        string result = $"{EmployeeID},{firstName},{lastName},{parsedDob},{parsedStartDate},{homeTown},{department}";
+                        Employee newEmployee = new Employee(EmployeeID, firstName, lastName, parsedDob, parsedStartDate, homeTown, department, age);
+
+                        string result = $"{EmployeeID},{firstName},{lastName},{parsedDob}, {parsedStartDate},{homeTown},{department}, {age}";
 
 
                         employees.Add(newEmployee);
@@ -120,7 +127,15 @@ namespace EmployeeProject
         {
             try
             {
-                string databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
+                var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
+                //string[] readCsv = File.ReadAllLines(databasePath);
+
+                //foreach (string s in readCsv)
+                //{
+                //    Console.WriteLine(s);
+
+                //}
+                //StartMenu(employees);
 
                 using (var reader = new StreamReader(databasePath, true))
 
@@ -139,8 +154,10 @@ namespace EmployeeProject
                         DateTime.TryParse(StartDate, out DateTime parsedStartDate);
                         string hometown = values[5];
                         string department = values[6];
+                        string age = values[7];
+                        Int32.TryParse(age, out int parsedage);
 
-                        Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
+                        Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department, parsedage);
 
                         employees.Add(newEmployee);
                     }
@@ -152,38 +169,59 @@ namespace EmployeeProject
             {
                 Console.WriteLine("Unable to read file");
                 Console.WriteLine(e.Message);
-
             }
+
+
         }
 
-        public static void ShowAllEmployees(List<Employee> employees)
+    public static void ShowAllEmployees(List<Employee> employees)
+    {
+        for (var i = 0; i < employees.Count; i++)
         {
-            for (var i = 0; i < employees.Count; i++)
-            {
-                employees[i].DisplayAll();
-            }
+            employees[i].DisplayAll();
+        }
 
+        StartMenu(employees);
+    }
+
+    public static void RemoveEmployee(List<Employee> employees)
+    {
+
+        Console.WriteLine("Please enter the employee number you wish to remove");
+        var employeeRemoved = Console.ReadLine();
+
+        var removalQuery = from e in employees
+                           where e.EmployeeID == employeeRemoved
+                           select e;
+
+
+        foreach (var e in removalQuery)
+        {
+            Console.WriteLine($"{e.FirstName} has been removed");
+            employees.Remove(e);
             StartMenu(employees);
         }
+    }
 
-        public static void RemoveEmployee(List<Employee> employees)
+        public static void SaveChanges(List<Employee> employees)
         {
-
-            Console.WriteLine("Please enter the employee number you wish to remove");
-            var employeeRemoved = Console.ReadLine();
-
-            var removalQuery = from e in employees
-                               where e.EmployeeID == employeeRemoved
-                               select e;
+            string databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
+            var result = "test";
 
 
-            foreach (var e in removalQuery)
+            foreach (var e in employees)
             {
-                Console.WriteLine($"{e.FirstName} has been removed");
-                employees.Remove(e);
-                StartMenu(employees);
+                File.WriteAllText(databasePath, result);
             }
+
         }
+
+        //{
+        //    using (var writer = new StreamWriter(databasePath, true))
+        //    {
+
+
+        //    }
 
         //public static void AppendEmployee(List<Employee> employees)
         //{
