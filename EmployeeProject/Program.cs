@@ -52,7 +52,7 @@ namespace EmployeeProject
                     ShowAllEmployees(employees);
                     break;
 
-                    case 4:
+                case 4:
                     RemoveEmployee(employees);
                     break;
 
@@ -104,13 +104,13 @@ namespace EmployeeProject
                         writer.WriteLine(result);
                         writer.Close();
                         StartMenu(employees);
-                    }            
+                    }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine( "Unable to add employee");
-                Console.WriteLine( e.Message);
+                Console.WriteLine("Unable to add employee");
+                Console.WriteLine(e.Message);
             }
         }
 
@@ -161,18 +161,20 @@ namespace EmployeeProject
             {
                 employees[i].DisplayAll();
             }
-            
+
             StartMenu(employees);
         }
 
         public static void RemoveEmployee(List<Employee> employees)
         {
+          
             Console.WriteLine("Please enter the employee number you wish to remove");
             var employeeRemoved = Console.ReadLine();
 
             var removalQuery = from e in employees
                                where e.EmployeeID == employeeRemoved
                                select e;
+
 
             foreach (var e in removalQuery)
             {
@@ -181,6 +183,7 @@ namespace EmployeeProject
                 StartMenu(employees);
             }
         }
+
 
         public static void AppendEmployee(List<Employee> employees)
         {
