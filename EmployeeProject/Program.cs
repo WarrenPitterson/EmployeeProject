@@ -260,7 +260,6 @@ namespace EmployeeProject
         {
 
             var departmentsQuery =
-
                 from e in employees
                 group e by e.Department;
 
@@ -271,7 +270,7 @@ namespace EmployeeProject
 
                 foreach (var e in employeeGroup)
                 {
-                    var AverageDepartmentAge = e.Age;
+                    var age = e.Age;
 
                 }
 
@@ -286,15 +285,15 @@ namespace EmployeeProject
 
             foreach (var hometownGroup in ageQuery)
             {
-
+                var Count = 0;
                 Console.WriteLine($"Key:{hometownGroup.Key}");
 
                 foreach (var e in hometownGroup)
                 {
-                    Console.WriteLine($"\t\t{e.FirstName} {e.LastName}");
-
+                    Count++;
+                    Console.WriteLine($"\t{e.FirstName} {e.LastName} ");
                 }
-
+                Console.WriteLine($"Total {hometownGroup.Key} ---  {Count}");
             };
         }
 
