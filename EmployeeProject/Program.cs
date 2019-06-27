@@ -190,9 +190,11 @@ namespace EmployeeProject
         public static void RemoveEmployee(List<Employee> employees)
         {
             var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
+            StringBuilder sb = new StringBuilder();
 
-            
-                Console.WriteLine("Please enter the employee number you wish to remove");
+
+
+            Console.WriteLine("Please enter the employee number you wish to remove");
                 var employeeRemoved = Console.ReadLine();
 
                 var removalQuery = from e in employees
@@ -205,12 +207,6 @@ namespace EmployeeProject
                     employees.Remove(e);
                 }
 
-
-
-     
-            StringBuilder sb = new StringBuilder();
-
-
             foreach (var employee in employees)
             {
                 string result = $"{employee.EmployeeID},{employee.FirstName},{employee.LastName},{employee.Dob}, {employee.StartDate},{employee.HomeTown},{employee.Department}";
@@ -218,7 +214,7 @@ namespace EmployeeProject
             }
 
             string contents = sb.ToString();
-
+    
             File.WriteAllText(databasePath, contents);
 
             StartMenu(employees);
@@ -233,10 +229,10 @@ namespace EmployeeProject
 
             foreach (var employeeGroup in departmentsQuery)
             {
-                Console.WriteLine($"Key:{employeeGroup.Key}");
+                Console.WriteLine($"{employeeGroup.Key}");
                 foreach (var e in employeeGroup)
                 {
-                    Console.WriteLine($"\t\t{e.FirstName}, {e.Age}");
+                    Console.WriteLine($"\t\t{e.FirstName} - {e.Age}");
                 }
                 Console.WriteLine("\n");
             }
@@ -264,19 +260,20 @@ namespace EmployeeProject
 
             foreach (var employeeGroup in departmentsQuery)
             {
-                Console.WriteLine($"Key:{employeeGroup.Key}");
+                Console.WriteLine($"{employeeGroup.Key}");
                 var totalAge = 0;
                 var people = 0;
 
                 foreach (var e in employeeGroup)
                 {
-                    Console.WriteLine($"\t\t{e.FirstName}, {e.Age}");
+                    Console.WriteLine($"\t\t{e.FirstName} - {e.Age}");
                     totalAge += e.Age;
                     people++;
                 }
 
-                Console.WriteLine($"{totalAge/people}");
-                Console.WriteLine($"{totalAge}");
+                Console.WriteLine($"\t\tTotal age combined: {totalAge}");
+                Console.WriteLine($"\t\tStaff in Department: {people}");
+                Console.WriteLine($"\t\tAverage age of Staff in Department: {totalAge/people}");
                 Console.WriteLine("\n");
             }
         }
@@ -289,14 +286,14 @@ namespace EmployeeProject
             foreach (var hometownGroup in ageQuery)
             {
                 var Count = 0;
-                Console.WriteLine($"Key:{hometownGroup.Key}");
+                Console.WriteLine($"{hometownGroup.Key}");
 
                 foreach (var e in hometownGroup)
                 {
                     Count++;
                     Console.WriteLine($"\t{e.FirstName} {e.LastName} ");
                 }
-                Console.WriteLine($"Total {hometownGroup.Key} ---  {Count}");
+                Console.WriteLine($"Total: {hometownGroup.Key} - {Count}\n");
             };
         }
 
