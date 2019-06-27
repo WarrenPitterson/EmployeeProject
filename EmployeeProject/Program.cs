@@ -73,7 +73,7 @@ namespace EmployeeProject
                     break;
 
                 default:
-                    Console.WriteLine("Please select a number between 1-7 or 0 to exit\n");
+                    Console.WriteLine("Please select a number between 1-8 or 0 to exit\n");
                     break;
             }
             StartMenu(employees);
@@ -258,24 +258,27 @@ namespace EmployeeProject
 
         static void AverageAgeByDepartments(List<Employee> employees)
         {
-
             var departmentsQuery =
                 from e in employees
                 group e by e.Department;
 
-
             foreach (var employeeGroup in departmentsQuery)
             {
                 Console.WriteLine($"Key:{employeeGroup.Key}");
+                var totalAge = 0;
+                var people = 0;
 
                 foreach (var e in employeeGroup)
                 {
-                    var age = e.Age;
-
+                    Console.WriteLine($"\t\t{e.FirstName}, {e.Age}");
+                    totalAge += e.Age;
+                    people++;
                 }
 
+                Console.WriteLine($"{totalAge/people}");
+                Console.WriteLine($"{totalAge}");
+                Console.WriteLine("\n");
             }
-
         }
 
         static void NumberOfEmployeesByTown(List<Employee> employees)
