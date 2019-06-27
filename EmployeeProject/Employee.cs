@@ -27,10 +27,26 @@ namespace EmployeeProject
 
         }
         public DateTime StartDate { get; set; }
+        public bool Anniversary
+        {
+            get
+            {
+                
+                bool Anniversary = false;
+
+                if (StartDate.DayOfYear <= DateTime.Now.DayOfYear + 28 && StartDate.DayOfYear >= DateTime.Now.DayOfYear)
+                {
+                    Anniversary = true;
+                }
+
+                return Anniversary;
+
+            }
+        }
         public string HomeTown { get; set; }
         public string Department { get; set; }
 
-        public Employee(string employeeID, string firstName, string lastName, DateTime dob, DateTime startDate, string homeTown, string department, int age)
+        public Employee(string employeeID, string firstName, string lastName, DateTime dob, DateTime startDate, string homeTown, string department)
         {
             this.EmployeeID = employeeID;
             this.FirstName = firstName;

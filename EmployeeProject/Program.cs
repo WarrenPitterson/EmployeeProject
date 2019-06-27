@@ -27,7 +27,10 @@ namespace EmployeeProject
             Console.WriteLine("2 - Add Employee via CSV");
             Console.WriteLine("3 - List all Employees");
             Console.WriteLine("4 - Remove Employee");
-            Console.WriteLine("5 - Show Age by Departments");
+            Console.WriteLine("5 - Show employees who have anniversaries in the next 30 days");
+            Console.WriteLine("6 - Average Age By Departments");
+            Console.WriteLine("7 - Number of employees from each town");
+            Console.WriteLine("8 - Age of employees by Department");
             Console.WriteLine("0 - Quit Program\n");
 
 
@@ -57,11 +60,20 @@ namespace EmployeeProject
                     RemoveEmployee(employees);
                     break;
                 case 5:
+                    EmployeeMonthlyAnniversary(employees);
+                    break;
+                case 6:
+                    AverageAgeByDepartments(employees);
+                    break;
+                case 7:
+                    NumberOfEmployeesByTown(employees);
+                    break;
+                case 8:
                     ShowAgeByDepartments(employees);
                     break;
 
                 default:
-                    Console.WriteLine("Please select either 1, 2, 3, 4 or 0 to exit\n");
+                    Console.WriteLine("Please select a number between 1-7 or 0 to exit\n");
                     break;
             }
             StartMenu(employees);
@@ -90,7 +102,6 @@ namespace EmployeeProject
                         var dob = Console.ReadLine();
                         DateTime.TryParse(dob, out DateTime parsedDob);
 
-
                         Console.WriteLine("Please enter the employee start date (DD/MM/YYYY)");
                         var startDate = Console.ReadLine();
                         DateTime.TryParse(startDate, out DateTime parsedStartDate);
@@ -101,11 +112,9 @@ namespace EmployeeProject
                         Console.WriteLine("Please enter the employee department");
                         var department = Console.ReadLine();
 
-                        var age = 0;
+                        Employee newEmployee = new Employee(EmployeeID, firstName, lastName, parsedDob, parsedStartDate, homeTown, department);
 
-                        Employee newEmployee = new Employee(EmployeeID, firstName, lastName, parsedDob, parsedStartDate, homeTown, department, age);
-
-                        string result = $"{EmployeeID},{firstName},{lastName},{parsedDob}, {parsedStartDate},{homeTown},{department}, {age}";
+                        string result = $"{EmployeeID},{firstName},{lastName},{parsedDob}, {parsedStartDate},{homeTown},{department}";
 
 
                         employees.Add(newEmployee);
@@ -147,10 +156,9 @@ namespace EmployeeProject
                         DateTime.TryParse(StartDate, out DateTime parsedStartDate);
                         string hometown = values[5];
                         string department = values[6];
-                        string age = values[7];
-                        Int32.TryParse(age, out int parsedage);
+                        
 
-                        Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department, parsedage);
+                        Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
 
                         employees.Add(newEmployee);
                     }
@@ -195,25 +203,75 @@ namespace EmployeeProject
                 Console.WriteLine($"{e.FirstName} has been removed");
                 employees.Remove(e);
                 StartMenu(employees);
-
             }
         }
 
         public static void ShowAgeByDepartments(List<Employee> employees)
         {
-            var departmentsQuery = 
+            var departmentsQuery =
                 from e in employees
-                group e by e.Department[0];
-                                  
+                group e by e.Department;
+
             foreach (var employeeGroup in departmentsQuery)
             {
                 Console.WriteLine($"Key:{employeeGroup.Key}");
                 foreach (var e in employeeGroup)
                 {
-                    Console.WriteLine($"\t{e.FirstName}, {e.Age}");
+                    Console.WriteLine($"\t\t{e.FirstName}, {e.Age}");
                 }
+                Console.WriteLine("\n");
             }
         }
 
+        static void EmployeeMonthlyAnniversary(List<Employee> employees)
+        {
+            var AnniversaryQuery = from e in employees
+                                   select e;
+            foreach (var e in employees)
+            {
+                if (e.Anniversary == true)
+                {
+                    Console.WriteLine($"{e.FirstName} has a work anniversary in the next month");
+
+                }
+            }
+        
+        }
+
+        static void AverageAgeByDepartments(List<Employee> employees)
+        {
+            var departmentsQuery =
+                from e in employees
+                group e by e.Department;
+
+
+            foreach (var employeeGroup in departmentsQuery)
+            {
+                Console.WriteLine($"Key:{employeeGroup.Key}");
+
+                foreach (var e in employeeGroup)
+                {
+                    var AverageDepartmentAge = e.Age;
+
+                }
+
+            }
+
+        }
+
+        static void NumberOfEmployeesByTown(List<Employee> employees)
+        {
+
+        }
+
+        
     }
 }
+
+
+
+
+
+//5. List all employees whose work anniversary is within the next month 
+//6. List the average age of employees in each department 
+//7. List the number of employees in each town
