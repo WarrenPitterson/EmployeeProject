@@ -204,6 +204,7 @@ namespace EmployeeProject
                 employees.Remove(e);
                 StartMenu(employees);
             }
+
         }
 
         public static void ShowAgeByDepartments(List<Employee> employees)
