@@ -12,7 +12,20 @@ namespace EmployeeProject
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
-        public int Age { get; }
+        public int Age
+        {
+            get
+            {
+                int Age = DateTime.Now.Year - Dob.Year;
+
+                if ((Dob.Month > DateTime.Now.Month) || (Dob.Month == DateTime.Now.Month && Dob.Day > DateTime.Now.Day))
+                    Age--;
+                return Age;
+            }
+            
+
+
+        }
         public DateTime StartDate { get; set; }
         public string HomeTown { get; set; }
         public string Department { get; set; }
@@ -23,17 +36,17 @@ namespace EmployeeProject
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Dob = dob;
-            this.Age = age;
             this.StartDate = startDate;
             this.HomeTown = homeTown;
             this.Department = department;
         }
 
-
+        
         public void DisplayAll()
         {
             Console.WriteLine($" EmployeeId: {EmployeeID}\n First Name: { FirstName}\n Last Name: { LastName}\n Dob: { Dob.ToShortDateString()}\n Start Date: { StartDate.ToShortDateString()}\n HomeTown: { HomeTown}\n Department: {Department}\n");
         }
 
+              
     }
 }
