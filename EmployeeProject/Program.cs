@@ -201,13 +201,17 @@ namespace EmployeeProject
 
         public static void ShowAgeByDepartments(List<Employee> employees)
         {
-            var employeeDetails = from e in employees
+            var departmentsQuery = 
+                from e in employees
+                group e by e.Department[0];
                                   
-                                  select e;
-
-            foreach (var e in employeeDetails)
+            foreach (var employeeGroup in departmentsQuery)
             {
-                Console.WriteLine($"{e.FirstName} age is {e.Age}");
+                Console.WriteLine($"Key:{employeeGroup.Key}");
+                foreach (var e in employeeGroup)
+                {
+                    Console.WriteLine($"\t{e.FirstName}, {e.Age}");
+                }
             }
         }
 
