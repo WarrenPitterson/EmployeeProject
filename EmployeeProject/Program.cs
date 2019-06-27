@@ -156,7 +156,7 @@ namespace EmployeeProject
                         DateTime.TryParse(StartDate, out DateTime parsedStartDate);
                         string hometown = values[5];
                         string department = values[6];
-                        
+
 
                         Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
 
@@ -168,7 +168,7 @@ namespace EmployeeProject
             }
             catch (Exception e)
             {
-                Console.WriteLine("Unable to read file");
+                Console.WriteLine("Error Loading List");
                 Console.WriteLine(e.Message);
             }
 
@@ -180,8 +180,8 @@ namespace EmployeeProject
             for (var i = 0; i < employees.Count; i++)
             {
                 employees[i].DisplayAll();
-
             }
+
             StartMenu(employees);
 
 
@@ -189,22 +189,40 @@ namespace EmployeeProject
 
         public static void RemoveEmployee(List<Employee> employees)
         {
+            var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
 
-            Console.WriteLine("Please enter the employee number you wish to remove");
-            var employeeRemoved = Console.ReadLine();
+            
+                Console.WriteLine("Please enter the employee number you wish to remove");
+                var employeeRemoved = Console.ReadLine();
 
-            var removalQuery = from e in employees
-                               where e.EmployeeID == employeeRemoved
-                               select e;
+                var removalQuery = from e in employees
+                                   where e.EmployeeID == employeeRemoved
+                                   select e;
+
+                foreach (var e in removalQuery.ToList())
+                {
+                    Console.WriteLine($"{e.FirstName} has been removed");
+                    employees.Remove(e);
+                }
 
 
-            foreach (var e in removalQuery)
+
+     
+            StringBuilder sb = new StringBuilder();
+
+
+            foreach (var employee in employees)
             {
-                Console.WriteLine($"{e.FirstName} has been removed");
-                employees.Remove(e);
-                StartMenu(employees);
+                string result = $"{employee.EmployeeID},{employee.FirstName},{employee.LastName},{employee.Dob}, {employee.StartDate},{employee.HomeTown},{employee.Department}";
+                sb.AppendLine(result);
             }
 
+            string contents = sb.ToString();
+
+            File.WriteAllText(databasePath, contents);
+
+            StartMenu(employees);
+           
         }
 
         public static void ShowAgeByDepartments(List<Employee> employees)
@@ -232,16 +250,17 @@ namespace EmployeeProject
             {
                 if (e.Anniversary == true)
                 {
-                    Console.WriteLine($"{e.FirstName} has a work anniversary in the next month");
-
+                    Console.WriteLine($"{e.FirstName} has a work anniversary in the next month in {e.AnniversaryTimer} Days");
                 }
             }
-        
+
         }
 
         static void AverageAgeByDepartments(List<Employee> employees)
         {
+
             var departmentsQuery =
+
                 from e in employees
                 group e by e.Department;
 
@@ -262,10 +281,24 @@ namespace EmployeeProject
 
         static void NumberOfEmployeesByTown(List<Employee> employees)
         {
+            var ageQuery = from e in employees
+                           group e by e.HomeTown;
 
+            foreach (var hometownGroup in ageQuery)
+            {
+
+                Console.WriteLine($"Key:{hometownGroup.Key}");
+
+                foreach (var e in hometownGroup)
+                {
+                    Console.WriteLine($"\t\t{e.FirstName} {e.LastName}");
+
+                }
+
+            };
         }
 
-        
+
     }
 }
 

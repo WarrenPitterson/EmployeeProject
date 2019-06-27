@@ -22,9 +22,6 @@ namespace EmployeeProject
                     Age--;
                 return Age;
             }
-            
-
-
         }
         public DateTime StartDate { get; set; }
         public bool Anniversary
@@ -43,6 +40,15 @@ namespace EmployeeProject
 
             }
         }
+        public int AnniversaryTimer
+        {
+            get
+            {
+                var AnniversaryTimer = StartDate.DayOfYear - DateTime.Now.DayOfYear;
+                    return AnniversaryTimer;
+            }
+        }
+
         public string HomeTown { get; set; }
         public string Department { get; set; }
 
