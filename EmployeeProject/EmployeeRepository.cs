@@ -48,7 +48,6 @@ namespace EmployeeProject
 
                         string result = $"{EmployeeID},{firstName},{lastName},{parsedDob}, {parsedStartDate},{homeTown},{department}";
 
-
                         employees.Add(newEmployee);
                         writer.WriteLine(result);
                         writer.Close();
@@ -69,7 +68,6 @@ namespace EmployeeProject
             {
                 var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
 
-
                 using (var reader = new StreamReader(databasePath, true))
 
                 {
@@ -88,7 +86,6 @@ namespace EmployeeProject
                         string hometown = values[5];
                         string department = values[6];
 
-
                         Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
 
                         employees.Add(newEmployee);
@@ -102,8 +99,6 @@ namespace EmployeeProject
                 Console.WriteLine("Error Loading List");
                 Console.WriteLine(e.Message);
             }
-
-
         }
 
         public static void RemoveEmployee(List<Employee> employees)
@@ -127,9 +122,7 @@ namespace EmployeeProject
             }
 
             string contents = sb.ToString();
-
             File.WriteAllText(databasePath, contents);
-
             Program.StartMenu(employees);
         }
 
@@ -144,7 +137,7 @@ namespace EmployeeProject
             Console.WriteLine($"What would you like to change The Last Name to? ");
             var newLastName = Console.ReadLine();
 
-            foreach (var e in employees.Where(e => e.EmployeeID == employeeEdited))
+            foreach (var e in employees.ToList().Where(e => e.EmployeeID == employeeEdited))
             {
                 employees.Select(newlastName => { e.LastName = newLastName; return newlastName; }).ToList();
                 Console.WriteLine($"Name amended for {e.FirstName}");
@@ -158,7 +151,6 @@ namespace EmployeeProject
 
             string contents = sb.ToString();
             File.WriteAllText(databasePath, contents);
-
             Program.StartMenu(employees);
         }
     }

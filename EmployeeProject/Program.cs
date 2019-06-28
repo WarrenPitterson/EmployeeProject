@@ -20,7 +20,6 @@ namespace EmployeeProject
         {
             Console.WriteLine("Welcome to the Employee Program");
             StartMenu(employees);
-
         }
 
         public static void StartMenu(List<Employee> employees)
@@ -37,27 +36,21 @@ namespace EmployeeProject
             Console.WriteLine("9 - Edit Employees ");
             Console.WriteLine("0 - Quit Program\n");
 
-
             var userInput = (Console.ReadLine().Trim());
             Int32.TryParse(userInput, out int userInputResult);
-
 
             switch (userInputResult)
             {
                 case 0:
                     Environment.Exit(0);
                     break;
-
                 case 1:
                     EmployeeRepository.ManualAdd(employees);
                     break;
-
                 case 2:
                     EmployeeRepository.AddEmployeeViaCSV(employees);
                     break;
-
                 case 3:
-
                     ShowAllEmployees(employees);
                     break;
 
@@ -79,7 +72,6 @@ namespace EmployeeProject
                 case 9:
                     EmployeeRepository.EditEmployee(employees);
                     break;
-
                 default:
                     Console.WriteLine("Please select a number between 1-9 or 0 to exit\n");
                     break;

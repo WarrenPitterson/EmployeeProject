@@ -63,12 +63,9 @@ namespace EmployeeProject
             this.Department = department;
         }
 
-        
         public void DisplayAll()
         {
             Console.WriteLine($" EmployeeId: {EmployeeID}\n First Name: { FirstName}\n Last Name: { LastName}\n Dob: { Dob.ToShortDateString()}\n Start Date: { StartDate.ToShortDateString()}\n HomeTown: { HomeTown}\n Department: {Department}\n");
-        }
-
-              
+        }              
     }
 }
