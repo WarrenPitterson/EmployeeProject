@@ -19,6 +19,7 @@ namespace EmployeeProject
             List<Employee> employees = new List<Employee>();
             StartMenu(employees);
         }
+        
 
         public static void StartMenu(List<Employee> employees)
         {
@@ -31,6 +32,7 @@ namespace EmployeeProject
             Console.WriteLine("6 - Average Age By Departments");
             Console.WriteLine("7 - Number of employees from each town");
             Console.WriteLine("8 - Age of employees by Department");
+            Console.WriteLine("9 - Edit Employees ");
             Console.WriteLine("0 - Quit Program\n");
 
 
@@ -71,9 +73,12 @@ namespace EmployeeProject
                 case 8:
                     ShowAgeByDepartments(employees);
                     break;
+                case 9:
+                    EditEmployee(employees);
+                    break;
 
                 default:
-                    Console.WriteLine("Please select a number between 1-8 or 0 to exit\n");
+                    Console.WriteLine("Please select a number between 1-9 or 0 to exit\n");
                     break;
             }
             StartMenu(employees);
@@ -141,7 +146,7 @@ namespace EmployeeProject
 
                 using (var reader = new StreamReader(databasePath, true))
 
-                {
+                { 
                     while (!reader.EndOfStream)
                     {
                         var line = reader.ReadLine();
@@ -192,24 +197,18 @@ namespace EmployeeProject
             var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
             StringBuilder sb = new StringBuilder();
 
-
-
             Console.WriteLine("Please enter the employee number you wish to remove");
                 var employeeRemoved = Console.ReadLine();
 
-                var removalQuery = from e in employees
-                                   where e.EmployeeID == employeeRemoved
-                                   select e;
-
-                foreach (var e in removalQuery.ToList())
+            foreach (var e in employees.ToList().Where(e => e.EmployeeID == employeeRemoved)) 
                 {
                     Console.WriteLine($"{e.FirstName} has been removed");
                     employees.Remove(e);
                 }
 
-            foreach (var employee in employees)
+            foreach (var e in employees)
             {
-                string result = $"{employee.EmployeeID},{employee.FirstName},{employee.LastName},{employee.Dob}, {employee.StartDate},{employee.HomeTown},{employee.Department}";
+                string result = $"{e.EmployeeID},{e.FirstName},{e.LastName},{e.Dob}, {e.StartDate},{e.HomeTown},{e.Department}";
                 sb.AppendLine(result);
             }
 
@@ -218,16 +217,37 @@ namespace EmployeeProject
             File.WriteAllText(databasePath, contents);
 
             StartMenu(employees);
-           
+        }
+
+        public static void EditEmployee(List<Employee> employees)
+        {
+            var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
+            StringBuilder sb = new StringBuilder();
+
+            Console.WriteLine("Select the employee  number you wish to edit");
+            var employeeEdited = Console.ReadLine();
+
+            Console.WriteLine($"What would you like to change The Last Name to? ");
+            var newLastName = Console.ReadLine();
+
+            foreach (var e in employees.Where(e => e.EmployeeID == employeeEdited))
+            {
+                employees.Select(newlastName => { e.LastName = newLastName; return newlastName; }).ToList();
+
+                Console.WriteLine($"Name amended for {e.FirstName}");
+            }
+
+            
+                string contents = sb.ToString();
+                File.AppendAllText(databasePath, contents);
+            
+
+            StartMenu(employees);
         }
 
         public static void ShowAgeByDepartments(List<Employee> employees)
         {
-            var departmentsQuery =
-                from e in employees
-                group e by e.Department;
-
-            foreach (var employeeGroup in departmentsQuery)
+          foreach (var employeeGroup in employees.GroupBy (e=> e.Department))
             {
                 Console.WriteLine($"{employeeGroup.Key}");
                 foreach (var e in employeeGroup)
@@ -249,22 +269,17 @@ namespace EmployeeProject
                     Console.WriteLine($"{e.FirstName} has a work anniversary in the next month in {e.AnniversaryTimer} Days");
                 }
             }
-
         }
 
         static void AverageAgeByDepartments(List<Employee> employees)
         {
-            var departmentsQuery =
-                from e in employees
-                group e by e.Department;
-
-            foreach (var employeeGroup in departmentsQuery)
+            foreach (var d in employees.GroupBy(e => e.Department))
             {
-                Console.WriteLine($"{employeeGroup.Key}");
+                Console.WriteLine($"{d.Key}");
                 var totalAge = 0;
                 var people = 0;
 
-                foreach (var e in employeeGroup)
+                foreach (var e in d)
                 {
                     Console.WriteLine($"\t\t{e.FirstName} - {e.Age}");
                     totalAge += e.Age;
@@ -280,31 +295,33 @@ namespace EmployeeProject
 
         static void NumberOfEmployeesByTown(List<Employee> employees)
         {
-            var ageQuery = from e in employees
-                           group e by e.HomeTown;
-
-            foreach (var hometownGroup in ageQuery)
+          foreach (var h in employees.GroupBy(e => e.HomeTown))
             {
                 var Count = 0;
-                Console.WriteLine($"{hometownGroup.Key}");
+                Console.WriteLine($"{h.Key}");
 
-                foreach (var e in hometownGroup)
+                foreach (var e in h)
                 {
                     Count++;
                     Console.WriteLine($"\t{e.FirstName} {e.LastName} ");
                 }
-                Console.WriteLine($"Total: {hometownGroup.Key} - {Count}\n");
+                Console.WriteLine($"Total: {Count}\n");
             };
         }
-
-
     }
 }
 
 
 
 
+//private static void EditEmployee()
+//{
+//    Console.WriteLine("Enter the Id of the Employee whose details you wish to edit.");
+//    var input = Console.ReadLine();
+//    Int32.TryParse(input, out int Id);
+//    var x = Employees.FirstOrDefault(e => e.EmployeeId == Id);
 
-//5. List all employees whose work anniversary is within the next month 
-//6. List the average age of employees in each department 
-//7. List the number of employees in each town
+//    EmployeeRepo.UpdateEmployee(x);
+
+//    Console.WriteLine($"Employee {Id} has been edited.");
+//}
