@@ -233,14 +233,17 @@ namespace EmployeeProject
             foreach (var e in employees.Where(e => e.EmployeeID == employeeEdited))
             {
                 employees.Select(newlastName => { e.LastName = newLastName; return newlastName; }).ToList();
-
                 Console.WriteLine($"Name amended for {e.FirstName}");
             }
 
-            
-                string contents = sb.ToString();
-                File.AppendAllText(databasePath, contents);
-            
+            foreach (var e in employees)
+            {
+                string newresult = $"{e.EmployeeID},{e.FirstName},{newLastName},{e.Dob}, {e.StartDate},{e.HomeTown},{e.Department}";
+                sb.AppendLine(newresult);
+            }
+
+            string contents = sb.ToString();
+            File.WriteAllText(databasePath, contents);
 
             StartMenu(employees);
         }
