@@ -137,15 +137,14 @@ namespace EmployeeProject
             Console.WriteLine($"What would you like to change The Last Name to? ");
             var newLastName = Console.ReadLine();
 
-            foreach (var e in employees.ToList().Where(e => e.EmployeeID == employeeEdited))
-            {
-                employees.Select(newlastName => { e.LastName = newLastName; return newlastName; }).ToList();
-                Console.WriteLine($"Name amended for {e.FirstName}");
+            var emp = employees.Where(e => e.EmployeeID == employeeEdited).SingleOrDefault();
+            if (emp != null) {
+                emp.LastName = newLastName;
             }
-
+            
             foreach (var e in employees)
             {
-                string newresult = $"{e.EmployeeID},{e.FirstName},{newLastName},{e.Dob}, {e.StartDate},{e.HomeTown},{e.Department}";
+                string newresult = $"{e.EmployeeID},{e.FirstName},{e.LastName},{e.Dob}, {e.StartDate},{e.HomeTown},{e.Department}";
                 sb.AppendLine(newresult);
             }
 
