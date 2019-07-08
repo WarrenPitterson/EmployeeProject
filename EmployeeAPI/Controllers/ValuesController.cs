@@ -11,14 +11,25 @@ using HttpGetAttribute = System.Web.Http.HttpGetAttribute;
 namespace EmployeeAPI.Controllers
 {
     [System.Web.Http.Route("api/employees")]
-    public class ValuesController : ApiController
+    public class EmployeesController : ApiController
     {
        
        [HttpGet()]
         // GET api/values/
-        public ActionResult GetEmployees()
+        public IHttpActionResult GetEmployees()
         {
-            return Ok(Get);
+            return Ok(EmployeeRepository.employees);
+        }
+
+        [HttpGet()]
+        public IHttpActionResult GetOneEmployer(string id)
+        {
+            var employeeToReturn = EmployeeRepository.employees.FirstOrDefault(e => e.EmployeeID == id);
+            if (employeeToReturn == null)
+            {
+                return NotFound();
+            }
+            return Ok(employeeToReturn);
         }
 
         // POST api/values

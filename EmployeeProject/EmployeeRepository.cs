@@ -22,7 +22,7 @@ namespace EmployeeProject
                     using (var writer = new StreamWriter(databasePath, true))
                     {
                         Console.WriteLine("Employee ID");
-                        var EmployeeID = (Console.ReadLine());
+                        var employeeID = Console.ReadLine();
 
                         Console.WriteLine("Please enter first name");
                         var firstName = Console.ReadLine();
@@ -44,9 +44,9 @@ namespace EmployeeProject
                         Console.WriteLine("Please enter the employee department");
                         var department = Console.ReadLine();
 
-                        Employee newEmployee = new Employee(EmployeeID, firstName, lastName, parsedDob, parsedStartDate, homeTown, department);
+                        Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, homeTown, department);
 
-                        string result = $"{EmployeeID},{firstName},{lastName},{parsedDob}, {parsedStartDate},{homeTown},{department}";
+                        string result = $"{employeeID},{firstName},{lastName},{parsedDob}, {parsedStartDate},{homeTown},{department}";
 
                         employees.Add(newEmployee);
                         writer.WriteLine(result);
