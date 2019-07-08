@@ -48,7 +48,7 @@ namespace EmployeeProject
                     EmployeeRepository.ManualAdd(employees);
                     break;
                 case 2:
-                    EmployeeRepository.GetAllEmployees(employees);
+                    employees = EmployeeRepository.GetAllEmployees();
                     break;
                 case 3:
                     ShowAllEmployees(employees);

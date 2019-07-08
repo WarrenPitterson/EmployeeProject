@@ -154,32 +154,47 @@ namespace EmployeeProject
             Program.StartMenu(employees);
         }
 
-        public static List<Employee> GetAllEmployees(List<Employee> employees)
+        public static List<Employee> GetAllEmployees()
         {
-            var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
-
-            using (var reader = new StreamReader(databasePath, true))
+            try
             {
-                while (!reader.EndOfStream)
+                var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
+
+                using (var reader = new StreamReader(databasePath, true))
                 {
-                    var line = reader.ReadLine();
-                    var values = line.Split(',');
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+                        var values = line.Split(',');
 
-                    string employeeID = values[0];
-                    string firstName = values[1];
-                    string lastName = values[2];
-                    string dob = values[3];
-                    DateTime.TryParse(dob, out DateTime parsedDob);
-                    string StartDate = values[4];
-                    DateTime.TryParse(StartDate, out DateTime parsedStartDate);
-                    string hometown = values[5];
-                    string department = values[6];
+                        string employeeID = values[0];
+                        string firstName = values[1];
+                        string lastName = values[2];
+                        string dob = values[3];
+                        DateTime.TryParse(dob, out DateTime parsedDob);
+                        string StartDate = values[4];
+                        DateTime.TryParse(StartDate, out DateTime parsedStartDate);
+                        string hometown = values[5];
+                        string department = values[6];
 
-                    Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
-                    employees.Add(newEmployee);
+                        Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
+                        employees.Add(newEmployee);
+                    }
+                    Console.WriteLine("Employees added from CSV\n");
+                    return employees;
                 }
             }
-            return employees;
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Exception");
+                return null;
+
+            }
+            }
+            //Program.StartMenu(employees);
+
         }
     }
-}
+
+

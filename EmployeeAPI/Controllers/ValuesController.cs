@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using HttpGetAttribute = System.Web.Http.HttpGetAttribute;
 
+
 namespace EmployeeAPI.Controllers
 {
     [System.Web.Http.Route("api/employees")]
@@ -19,7 +20,8 @@ namespace EmployeeAPI.Controllers
         public IHttpActionResult GetEmployees()
         {
             //return Ok();
-            return Ok(EmployeeRepository.employees);
+            var employees = EmployeeRepository.GetAllEmployees();
+            return Ok(employees);
         }
 
         [HttpGet()]
