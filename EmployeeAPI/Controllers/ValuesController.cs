@@ -13,17 +13,11 @@ namespace EmployeeAPI.Controllers
     [System.Web.Http.Route("api/employees")]
     public class ValuesController : ApiController
     {
-        // GET api/values
-        [HttpGet()]
-        public ActionResult GetEmployees()
+       
+       [HttpGet()]
+        // GET api/values/
+        public void Get(string value)
         {
-            return Ok(EmployeeRepository.AddEmployeeViaCSV);
-        }
-
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
         }
 
         // POST api/values
