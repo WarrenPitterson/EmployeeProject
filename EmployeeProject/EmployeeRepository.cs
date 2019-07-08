@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace EmployeeProject
 {
-    public class EmployeeRepository 
+    public class EmployeeRepository
     {
         public static string databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
-        private readonly List<Employee> employees = new List<Employee>();
+        public static List<Employee> employees = new List<Employee>();
 
         public static void ManualAdd(List<Employee> employees)
         {
@@ -138,10 +138,11 @@ namespace EmployeeProject
             var newLastName = Console.ReadLine();
 
             var emp = employees.Where(e => e.EmployeeID == employeeEdited).SingleOrDefault();
-            if (emp != null) {
+            if (emp != null)
+            {
                 emp.LastName = newLastName;
             }
-            
+
             foreach (var e in employees)
             {
                 string newresult = $"{e.EmployeeID},{e.FirstName},{e.LastName},{e.Dob}, {e.StartDate},{e.HomeTown},{e.Department}";
@@ -151,6 +152,35 @@ namespace EmployeeProject
             string contents = sb.ToString();
             File.WriteAllText(databasePath, contents);
             Program.StartMenu(employees);
+        }
+
+        public static List<Employee> GetAllEmployees()
+        {
+            var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
+            var employees = GetAllEmployees();
+
+            using (var reader = new StreamReader(databasePath, true))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(',');
+
+                    string employeeID = values[0];
+                    string firstName = values[1];
+                    string lastName = values[2];
+                    string dob = values[3];
+                    DateTime.TryParse(dob, out DateTime parsedDob);
+                    string StartDate = values[4];
+                    DateTime.TryParse(StartDate, out DateTime parsedStartDate);
+                    string hometown = values[5];
+                    string department = values[6];
+
+                    Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
+                    employees.Add(newEmployee);
+                }
+            }
+            return employees;
         }
     }
 }

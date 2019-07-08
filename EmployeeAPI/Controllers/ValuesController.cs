@@ -16,8 +16,9 @@ namespace EmployeeAPI.Controllers
        
        [HttpGet()]
         // GET api/values/
-        public void Get(string value)
+        public ActionResult GetEmployees()
         {
+            return Ok(Get);
         }
 
         // POST api/values
