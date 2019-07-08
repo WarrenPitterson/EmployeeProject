@@ -18,8 +18,8 @@ namespace EmployeeAPI.Controllers
         // GET api/values/
         public IHttpActionResult GetEmployees()
         {
-            return Ok(EmployeeRepository.GetAllEmployees());
-            //return Ok(EmployeeRepository.employees);
+            //return Ok();
+            return Ok(EmployeeRepository.employees);
         }
 
         [HttpGet()]

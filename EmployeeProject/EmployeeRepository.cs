@@ -154,10 +154,9 @@ namespace EmployeeProject
             Program.StartMenu(employees);
         }
 
-        public static List<Employee> GetAllEmployees()
+        public static List<Employee> GetAllEmployees(List<Employee> employees)
         {
             var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
-            var employees = GetAllEmployees();
 
             using (var reader = new StreamReader(databasePath, true))
             {
