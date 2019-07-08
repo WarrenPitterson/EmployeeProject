@@ -13,12 +13,13 @@ namespace EmployeeAPI.Controllers
     [System.Web.Http.Route("api/employees")]
     public class EmployeesController : ApiController
     {
-       
-       [HttpGet()]
+
+        [HttpGet()]
         // GET api/values/
         public IHttpActionResult GetEmployees()
         {
-            return Ok(EmployeeRepository.employees);
+            return Ok(EmployeeRepository.GetAllEmployees());
+            //return Ok(EmployeeRepository.employees);
         }
 
         [HttpGet()]
