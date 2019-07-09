@@ -90,10 +90,20 @@ namespace EmployeeAPI.Controllers
         [Route("api/employees/Anniversaries")]
         public IHttpActionResult EmployeeMonthlyAnniversary(Employee employee)
         {
-            var AnniversaryQuery = EmployeeRepository.GetAllEmployees().FindAll(e => e.Anniversary == true);  
+            var AnniversaryQuery = EmployeeRepository.GetAllEmployees().FindAll(e => e.Anniversary == true);
 
             return Ok(AnniversaryQuery);
         }
-}
+
+        [HttpGet()]
+        [Route("api/employees/AvgDept")]
+        public IHttpActionResult AverageAgeOfEmployeesByDepartment(Employee employee)
+        {
+            var Results = EmployeeRepository.GetAllEmployees().GroupBy(e => e.Department);
+
+
+            return Ok(Results);
+        }
+    }
 
 }
