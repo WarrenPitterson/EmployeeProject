@@ -33,12 +33,12 @@ namespace EmployeeAPI.Controllers
 
         // POST api/values
         [HttpPost()]
-        [Route ("api/employees/")]
+        [Route("api/employees/")]
         public IHttpActionResult AddNewEmployee([FromBody]Employee employee)
         {
             EmployeeRepository.GetAllEmployees().Add(employee);
 
-                if (!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest("Invalid Entry");
 
             return Ok(employee);
@@ -48,20 +48,20 @@ namespace EmployeeAPI.Controllers
         // PUT api/values/5
         [HttpPut()]
         [Route("api/employees/{id}")]
-        public IHttpActionResult EditEmployee (int id, Employee employee)
+        public IHttpActionResult EditEmployee(int id, Employee employee)
         {
             if (!ModelState.IsValid)
-            return BadRequest("Invalid Entry");
+                return BadRequest("Invalid Entry");
 
             var employeeToEdit = EmployeeRepository.GetAllEmployees().FirstOrDefault(e => e.EmployeeId == id);
 
-            if (employeeToEdit !=null)
+            if (employeeToEdit != null)
             {
                 employeeToEdit.FirstName = employee.FirstName;
                 employeeToEdit.LastName = employee.LastName;
             }
 
-        else
+            else
             {
                 return NotFound();
             }
@@ -82,9 +82,18 @@ namespace EmployeeAPI.Controllers
             }
 
             EmployeeRepository.employees.Remove(employeeToDelete);
-         
+
             return Ok(employeeToDelete);
         }
-    }
+
+        [HttpGet()]
+        [Route("api/employees/Anniversaries")]
+        public IHttpActionResult EmployeeMonthlyAnniversary(Employee employee)
+        {
+            var AnniversaryQuery = EmployeeRepository.GetAllEmployees().FindAll(e => e.Anniversary == true);  
+
+            return Ok(AnniversaryQuery);
+        }
 }
 
+}

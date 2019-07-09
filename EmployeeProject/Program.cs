@@ -52,6 +52,7 @@ namespace EmployeeProject
                     break;
                 case 3:
                     ShowAllEmployees(employees);
+
                     break;
                 case 4:
                     EmployeeRepository.RemoveEmployee(employees);
