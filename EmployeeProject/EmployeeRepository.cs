@@ -46,7 +46,7 @@ namespace EmployeeProject
 
                         Employee newEmployee = new Employee(EmployeeId, firstName, lastName, parsedDob, parsedStartDate, homeTown, department);
 
-                        string result = $"{EmployeeId},{firstName},{lastName},{parsedDob.ToShortDateString()}, {parsedStartDate},{homeTown},{department}";
+                        string result = $"{EmployeeId},{firstName},{lastName},{parsedDob.ToShortDateString()}, {parsedStartDate.ToShortDateString()},{homeTown},{department}";
 
                         employees.Add(newEmployee);
                         writer.WriteLine(result);
@@ -190,7 +190,6 @@ namespace EmployeeProject
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                Console.WriteLine("Exception");
                 return null;
 
             }

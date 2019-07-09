@@ -38,17 +38,35 @@ namespace EmployeeAPI.Controllers
         {
             EmployeeRepository.GetAllEmployees().Add(employee);
 
-
-            if (!ModelState.IsValid)
-            return BadRequest("Invalid Entry");
+                if (!ModelState.IsValid)
+                return BadRequest("Invalid Entry");
 
             return Ok(employee);
 
         }
 
         // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
+        [HttpPut()]
+        [Route("api/employees/{id}")]
+        public IHttpActionResult EditEmployee (int id, Employee employee)
         {
+            if (!ModelState.IsValid)
+            return BadRequest("Invalid Entry");
+
+            var employeeToEdit = EmployeeRepository.GetAllEmployees().FirstOrDefault(e => e.EmployeeId == id);
+
+            if (employeeToEdit !=null)
+            {
+                employeeToEdit.FirstName = employee.FirstName;
+                employeeToEdit.LastName = employee.LastName;
+            }
+
+        else
+            {
+                return NotFound();
+            }
+
+            return Ok(employee);
         }
 
         // DELETE api/values/5
