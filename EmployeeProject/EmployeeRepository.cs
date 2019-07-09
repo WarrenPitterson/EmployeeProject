@@ -22,7 +22,7 @@ namespace EmployeeProject
                     using (var writer = new StreamWriter(databasePath, true))
                     {
                         Console.WriteLine("Employee ID");
-                        var employeeID = Console.ReadLine();
+                        var employeeID = Int32.Parse(Console.ReadLine());
 
                         Console.WriteLine("Please enter first name");
                         var firstName = Console.ReadLine();
@@ -46,7 +46,7 @@ namespace EmployeeProject
 
                         Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, homeTown, department);
 
-                        string result = $"{employeeID},{firstName},{lastName},{parsedDob}, {parsedStartDate},{homeTown},{department}";
+                        string result = $"{employeeID},{firstName},{lastName},{parsedDob.ToShortDateString()}, {parsedStartDate},{homeTown},{department}";
 
                         employees.Add(newEmployee);
                         writer.WriteLine(result);
@@ -77,6 +77,7 @@ namespace EmployeeProject
                         var values = line.Split(',');
 
                         string employeeID = values[0];
+                        int.TryParse(employeeID, out int parsedEmployeeID);
                         string firstName = values[1];
                         string lastName = values[2];
                         string dob = values[3];
@@ -86,7 +87,7 @@ namespace EmployeeProject
                         string hometown = values[5];
                         string department = values[6];
 
-                        Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
+                        Employee newEmployee = new Employee(parsedEmployeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
 
                         employees.Add(newEmployee);
                     }
@@ -107,7 +108,8 @@ namespace EmployeeProject
             StringBuilder sb = new StringBuilder();
 
             Console.WriteLine("Please enter the employee number you wish to remove");
-            var employeeRemoved = Console.ReadLine();
+            var employeeRemoved = int.Parse(Console.ReadLine());
+
 
             foreach (var e in employees.ToList().Where(e => e.EmployeeID == employeeRemoved))
             {
@@ -132,7 +134,7 @@ namespace EmployeeProject
             StringBuilder sb = new StringBuilder();
 
             Console.WriteLine("Select the employee  number you wish to edit");
-            var employeeEdited = Console.ReadLine();
+            var employeeEdited = int.Parse(Console.ReadLine());
 
             Console.WriteLine($"What would you like to change The Last Name to? ");
             var newLastName = Console.ReadLine();
@@ -168,6 +170,7 @@ namespace EmployeeProject
                         var values = line.Split(',');
 
                         string employeeID = values[0];
+                        Int32.TryParse(employeeID, out int parsedEmployeeID);
                         string firstName = values[1];
                         string lastName = values[2];
                         string dob = values[3];
@@ -177,7 +180,7 @@ namespace EmployeeProject
                         string hometown = values[5];
                         string department = values[6];
 
-                        Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
+                        Employee newEmployee = new Employee(parsedEmployeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
                         employees.Add(newEmployee);
                     }
                     Console.WriteLine("Employees added from CSV\n");
@@ -191,10 +194,10 @@ namespace EmployeeProject
                 return null;
 
             }
-            }
+        }
             //Program.StartMenu(employees);
 
-        }
     }
+}
 
 

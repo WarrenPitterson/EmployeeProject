@@ -25,13 +25,13 @@ namespace EmployeeAPI.Controllers
         }
 
         [HttpGet()]
-        public IHttpActionResult GetOneEmployer(string id)
+        public IHttpActionResult GetOneEmployer(int id)
         {
-            var employeeToReturn = EmployeeRepository.employees.FirstOrDefault(e => e.EmployeeID == id);
-            if (employeeToReturn == null)
-            {
-                return NotFound();
-            }
+            var employeeToReturn = EmployeeRepository.GetAllEmployees().FirstOrDefault(e => e.EmployeeID == id);
+            //if (employeeToReturn == null)
+            //{
+            //    return NotFound();
+            //}
             return Ok(employeeToReturn);
         }
 

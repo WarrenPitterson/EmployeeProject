@@ -8,7 +8,7 @@ namespace EmployeeProject
 {
     public class Employee
     {
-        public string EmployeeID { get; set; }
+        public int EmployeeID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
@@ -52,7 +52,7 @@ namespace EmployeeProject
         public string HomeTown { get; set; }
         public string Department { get; set; }
 
-        public Employee(string employeeID, string firstName, string lastName, DateTime dob, DateTime startDate, string homeTown, string department)
+        public Employee(int employeeID, string firstName, string lastName, DateTime dob, DateTime startDate, string homeTown, string department)
         {
             this.EmployeeID = employeeID;
             this.FirstName = firstName;
