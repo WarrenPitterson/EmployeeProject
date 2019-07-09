@@ -2,16 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
-using System.Web.Mvc;
-using HttpGetAttribute = System.Web.Http.HttpGetAttribute;
 
 
 namespace EmployeeAPI.Controllers
 {
-    [System.Web.Http.Route("api/employees")]
+    [Route("api/employees")]
     public class EmployeesController : ApiController
     {
 
@@ -25,13 +21,14 @@ namespace EmployeeAPI.Controllers
         }
 
         [HttpGet()]
-        public IHttpActionResult GetOneEmployer(int id)
+        [Route ("api/employees/{id}")]
+        public IHttpActionResult GetOneEmployee(int id)
         {
-            var employeeToReturn = EmployeeRepository.GetAllEmployees().FirstOrDefault(e => e.EmployeeID == id);
-            //if (employeeToReturn == null)
-            //{
-            //    return NotFound();
-            //}
+            var employeeToReturn = EmployeeRepository.GetAllEmployees().FirstOrDefault(e => e.EmployeeId == id);
+            if (employeeToReturn == null)
+            {
+                return NotFound();
+            }
             return Ok(employeeToReturn);
         }
 

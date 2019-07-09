@@ -22,7 +22,7 @@ namespace EmployeeProject
                     using (var writer = new StreamWriter(databasePath, true))
                     {
                         Console.WriteLine("Employee ID");
-                        var employeeID = Int32.Parse(Console.ReadLine());
+                        var EmployeeId = Int32.Parse(Console.ReadLine());
 
                         Console.WriteLine("Please enter first name");
                         var firstName = Console.ReadLine();
@@ -44,9 +44,9 @@ namespace EmployeeProject
                         Console.WriteLine("Please enter the employee department");
                         var department = Console.ReadLine();
 
-                        Employee newEmployee = new Employee(employeeID, firstName, lastName, parsedDob, parsedStartDate, homeTown, department);
+                        Employee newEmployee = new Employee(EmployeeId, firstName, lastName, parsedDob, parsedStartDate, homeTown, department);
 
-                        string result = $"{employeeID},{firstName},{lastName},{parsedDob.ToShortDateString()}, {parsedStartDate},{homeTown},{department}";
+                        string result = $"{EmployeeId},{firstName},{lastName},{parsedDob.ToShortDateString()}, {parsedStartDate},{homeTown},{department}";
 
                         employees.Add(newEmployee);
                         writer.WriteLine(result);
@@ -76,8 +76,8 @@ namespace EmployeeProject
                         var line = reader.ReadLine();
                         var values = line.Split(',');
 
-                        string employeeID = values[0];
-                        int.TryParse(employeeID, out int parsedEmployeeID);
+                        string EmployeeId = values[0];
+                        int.TryParse(EmployeeId, out int parsedEmployeeID);
                         string firstName = values[1];
                         string lastName = values[2];
                         string dob = values[3];
@@ -111,7 +111,7 @@ namespace EmployeeProject
             var employeeRemoved = int.Parse(Console.ReadLine());
 
 
-            foreach (var e in employees.ToList().Where(e => e.EmployeeID == employeeRemoved))
+            foreach (var e in employees.ToList().Where(e => e.EmployeeId == employeeRemoved))
             {
                 Console.WriteLine($"{e.FirstName} has been removed");
                 employees.Remove(e);
@@ -119,7 +119,7 @@ namespace EmployeeProject
 
             foreach (var e in employees)
             {
-                string result = $"{e.EmployeeID},{e.FirstName},{e.LastName},{e.Dob}, {e.StartDate},{e.HomeTown},{e.Department}";
+                string result = $"{e.EmployeeId},{e.FirstName},{e.LastName},{e.Dob}, {e.StartDate},{e.HomeTown},{e.Department}";
                 sb.AppendLine(result);
             }
 
@@ -139,7 +139,7 @@ namespace EmployeeProject
             Console.WriteLine($"What would you like to change The Last Name to? ");
             var newLastName = Console.ReadLine();
 
-            var emp = employees.Where(e => e.EmployeeID == employeeEdited).SingleOrDefault();
+            var emp = employees.Where(e => e.EmployeeId == employeeEdited).SingleOrDefault();
             if (emp != null)
             {
                 emp.LastName = newLastName;
@@ -147,7 +147,7 @@ namespace EmployeeProject
 
             foreach (var e in employees)
             {
-                string newresult = $"{e.EmployeeID},{e.FirstName},{e.LastName},{e.Dob}, {e.StartDate},{e.HomeTown},{e.Department}";
+                string newresult = $"{e.EmployeeId},{e.FirstName},{e.LastName},{e.Dob}, {e.StartDate},{e.HomeTown},{e.Department}";
                 sb.AppendLine(newresult);
             }
 
@@ -169,8 +169,8 @@ namespace EmployeeProject
                         var line = reader.ReadLine();
                         var values = line.Split(',');
 
-                        string employeeID = values[0];
-                        Int32.TryParse(employeeID, out int parsedEmployeeID);
+                        string EmployeeId = values[0];
+                        Int32.TryParse(EmployeeId, out int parsedEmployeeID);
                         string firstName = values[1];
                         string lastName = values[2];
                         string dob = values[3];

@@ -8,7 +8,7 @@ namespace EmployeeProject
 {
     public class Employee
     {
-        public int EmployeeID { get; set; }
+        public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Dob { get; set; }
@@ -52,9 +52,9 @@ namespace EmployeeProject
         public string HomeTown { get; set; }
         public string Department { get; set; }
 
-        public Employee(int employeeID, string firstName, string lastName, DateTime dob, DateTime startDate, string homeTown, string department)
+        public Employee(int EmployeeId, string firstName, string lastName, DateTime dob, DateTime startDate, string homeTown, string department)
         {
-            this.EmployeeID = employeeID;
+            this.EmployeeId = EmployeeId;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Dob = dob;
@@ -65,7 +65,7 @@ namespace EmployeeProject
 
         public void DisplayAll()
         {
-            Console.WriteLine($" EmployeeId: {EmployeeID}\n First Name: { FirstName}\n Last Name: { LastName}\n Dob: { Dob.ToShortDateString()}\n Start Date: { StartDate.ToShortDateString()}\n HomeTown: { HomeTown}\n Department: {Department}\n");
+            Console.WriteLine($" EmployeeId: {EmployeeId}\n First Name: { FirstName}\n Last Name: { LastName}\n Dob: { Dob.ToShortDateString()}\n Start Date: { StartDate.ToShortDateString()}\n HomeTown: { HomeTown}\n Department: {Department}\n");
         }              
     }
 }
