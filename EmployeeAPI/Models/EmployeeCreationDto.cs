@@ -8,6 +8,10 @@ namespace EmployeeAPI.Models
 {
     public class EmployeeCreationDto
     {
+        [Required (ErrorMessage = "Incorrect Id")]
+        [MaxLength(4)]
+        public int Id { get; set; }
+
         [Required (ErrorMessage = "You should have a valid name")]
         [MaxLength(20)]
         public string Firstname { get; set; }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace EmployeeAPI.Models
 {
-    public class EmployeesDto
+    public class EmployeeDto
     {
         public int EmployeeId { get; set; }
         public string FirstName { get; set; }

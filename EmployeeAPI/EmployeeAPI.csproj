@@ -161,7 +161,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EmployeeCreationDto.cs" />
-    <Compile Include="Models\EmployeesDto.cs" />
+    <Compile Include="Models\EmployeeDto.cs" />
     <Compile Include="Models\EmployeeUpdateDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

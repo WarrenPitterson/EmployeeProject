@@ -1,4 +1,5 @@
-﻿using EmployeeProject;
+﻿using EmployeeAPI.Models;
+using EmployeeProject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,21 +8,19 @@ using System.Web.Http;
 
 namespace EmployeeAPI.Controllers
 {
-    [Route("api/employees")]
     public class EmployeesController : ApiController
     {
 
         [HttpGet()]
-        // GET api/values/
+        [Route("api/employees")]
         public IHttpActionResult GetEmployees()
         {
-            //return Ok();
             var employees = EmployeeRepository.GetAllEmployees();
             return Ok(employees);
         }
 
         [HttpGet()]
-        [Route ("api/employees/{id}")]
+        [Route("api/employees/{id}")]
         public IHttpActionResult GetOneEmployee(int id)
         {
             var employeeToReturn = EmployeeRepository.GetAllEmployees().FirstOrDefault(e => e.EmployeeId == id);
@@ -33,8 +32,18 @@ namespace EmployeeAPI.Controllers
         }
 
         // POST api/values
-        public void Post([FromBody]string value)
+        [HttpPost()]
+        [Route ("api/employees/")]
+        public IHttpActionResult AddNewEmployee([FromBody]Employee employee)
         {
+            EmployeeRepository.GetAllEmployees().Add(employee);
+
+
+            if (!ModelState.IsValid)
+            return BadRequest("Invalid Entry");
+
+            return Ok(employee);
+
         }
 
         // PUT api/values/5
@@ -43,8 +52,21 @@ namespace EmployeeAPI.Controllers
         }
 
         // DELETE api/values/5
-        public void Delete(int id)
+        [HttpDelete()]
+        [Route("api/employees/{id}")]
+        public IHttpActionResult DeleteOneEmployee(int id)
         {
+            var employeeToDelete = EmployeeRepository.GetAllEmployees().FirstOrDefault(e => e.EmployeeId == id);
+
+            if (employeeToDelete == null)
+            {
+                return NotFound();
+            }
+
+            EmployeeRepository.employees.Remove(employeeToDelete);
+         
+            return Ok(employeeToDelete);
         }
     }
 }
+
