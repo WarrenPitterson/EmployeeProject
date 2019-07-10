@@ -130,9 +130,11 @@ namespace EmployeeProject
                     people++;
                 }
 
-                Console.WriteLine($"\t\tTotal age combined: {totalAge}");
+                var average = (double) totalAge / people;
+
+                Console.WriteLine($"\t\tTotal age combined: {totalAge:F2}");
                 Console.WriteLine($"\t\tStaff in Department: {people}");
-                Console.WriteLine($"\t\tAverage age of Staff in Department: {totalAge / people}");
+                Console.WriteLine($"\t\tAverage age of Staff in Department: {average:F2}");
                 Console.WriteLine("\n");
             }
         }

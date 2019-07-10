@@ -194,8 +194,6 @@ namespace EmployeeProject
 
             }
         }
-            //Program.StartMenu(employees);
-
     }
 }
 
