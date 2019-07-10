@@ -97,13 +97,43 @@ namespace EmployeeAPI.Controllers
 
         [HttpGet()]
         [Route("api/employees/AvgDept")]
-        public IHttpActionResult AverageAgeOfEmployeesByDepartment(Employee employee)
+        public IHttpActionResult AverageAgeOfEmployeesByDepartment()
         {
-            var Results = EmployeeRepository.GetAllEmployees().GroupBy(e => e.Department);
 
+            //var Results = EmployeeRepository.GetAllEmployees().GroupBy(e => e.Department);
 
-            return Ok(Results);
+            var AgeByDepartment = EmployeeRepository.GetAllEmployees().GroupBy(e => e.Department)
+                                           .OrderBy(e => e.Key)
+                                           .Select(e => new
+                                           {
+                                               Department = e.Key,
+                                               TotalAge = e.Sum(x => x.Age),
+                                               AverageAge = (double) e.Sum(x => x.Age) / e.Count(),
+                                           });
+            return Ok(AgeByDepartment);
         }
     }
-
 }
+
+
+//List<Employee> employees = new List<Employee>();
+
+
+//            foreach (var d in employees.GroupBy(e => e.Department))
+                
+//            {
+//                var totalAge = 0;
+//var people = 0;
+
+//                foreach (var e in d)
+//                {
+//                    totalAge += e.Age;
+//                    people++;
+//                }
+
+//                var average = (double)totalAge / people;
+
+//            }
+//            var result = employees;
+
+//            return Ok(employees);
