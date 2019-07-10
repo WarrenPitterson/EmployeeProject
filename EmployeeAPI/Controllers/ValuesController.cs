@@ -108,9 +108,25 @@ namespace EmployeeAPI.Controllers
                                            {
                                                Department = e.Key,
                                                TotalAge = e.Sum(x => x.Age),
+                                               People = e.Count(),
                                                AverageAge = (double) e.Sum(x => x.Age) / e.Count(),
                                            });
             return Ok(AgeByDepartment);
+        }
+
+        [HttpGet()]
+        [Route("api/employees/EmpTown")]
+        public IHttpActionResult EmployeesByTown()
+        {
+            var EmployeesByTown = EmployeeRepository.GetAllEmployees().GroupBy(e => e.HomeTown)
+                                           .OrderBy(e => e.Key)
+                                           .Select(e => new
+                                           {
+                                               Department = e.Key,
+                                               Name = e.Select(x => x.FirstName),
+                                               People = e.Count(),
+                                           });
+            return Ok(EmployeesByTown);
         }
     }
 }
