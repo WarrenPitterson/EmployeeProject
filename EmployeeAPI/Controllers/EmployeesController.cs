@@ -1,9 +1,7 @@
-﻿using EmployeeAPI.Models;
-using EmployeeProject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
+using EmployeeBusinessLogic;
+
 
 
 namespace EmployeeAPI.Controllers

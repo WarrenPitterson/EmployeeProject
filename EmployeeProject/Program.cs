@@ -8,7 +8,7 @@ using System.Configuration;
 using System.ComponentModel;
 
 
-namespace EmployeeProject
+namespace EmployeeConsoleProject
 {
     class Program
     {

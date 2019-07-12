@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmployeeConsoleProject
+namespace EmployeeBusinessLogic
 {
     public class Employee
     {
@@ -61,6 +61,11 @@ namespace EmployeeConsoleProject
             this.StartDate = startDate;
             this.HomeTown = homeTown;
             this.Department = department;
+        }
+
+        public Employee()
+        {
+
         }
 
         public void DisplayAll()

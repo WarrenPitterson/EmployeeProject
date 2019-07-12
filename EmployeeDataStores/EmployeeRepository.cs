@@ -6,17 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EmployeeConsoleProject
+namespace EmployeeBusinessLogic
 {
     public class EmployeeRepository
     {
         public static string databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
         public static List<Employee> employees = new List<Employee>();
 
+
         public static void ManualAdd(List<Employee> employees)
         {
-            try
-            {
                 string databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
                 {
                     using (var writer = new StreamWriter(databasePath, true))
@@ -54,18 +53,10 @@ namespace EmployeeConsoleProject
                         Program.StartMenu(employees);
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Unable to add employee");
-                Console.WriteLine(e.Message);
-            }
         }
 
         public static void AddEmployeeViaCSV(List<Employee> employees)
         {
-            try
-            {
                 var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
 
                 using (var reader = new StreamReader(databasePath, true))
@@ -94,12 +85,6 @@ namespace EmployeeConsoleProject
                     Console.WriteLine("Employees added from CSV\n");
                 }
                 Program.StartMenu(employees);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error Loading List");
-                Console.WriteLine(e.Message);
-            }
         }
 
         public static void RemoveEmployee(List<Employee> employees)
@@ -158,8 +143,6 @@ namespace EmployeeConsoleProject
 
         public static List<Employee> GetAllEmployees()
         {
-            try
-            {
                 var databasePath = ConfigurationManager.AppSettings["CsvDatabasePath"];
 
                 using (var reader = new StreamReader(databasePath, true))
@@ -183,18 +166,11 @@ namespace EmployeeConsoleProject
                         Employee newEmployee = new Employee(parsedEmployeeID, firstName, lastName, parsedDob, parsedStartDate, hometown, department);
                         employees.Add(newEmployee);
                     }
-                    Console.WriteLine("Employees added from CSV\n");
                     return employees;
                 }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return null;
-
-            }
+           
         }
     }
-}
 
 

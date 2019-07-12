@@ -156,7 +156,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -249,9 +249,13 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EmployeeProject\EmployeeProject.csproj">
-      <Project>{d5e0ac1f-24ff-4ade-8262-da04262cefa8}</Project>
-      <Name>EmployeeProject</Name>
+    <ProjectReference Include="..\EmployeeDataStores\EmployeeBusinessLogic.csproj">
+      <Project>{c7952a05-1d8c-429b-bc99-efc179132dc8}</Project>
+      <Name>EmployeeBusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EmployeesDataStores\EmployeeDataStore.csproj">
+      <Project>{81253273-baff-437b-bba8-68f8297b868a}</Project>
+      <Name>EmployeeDataStore</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
